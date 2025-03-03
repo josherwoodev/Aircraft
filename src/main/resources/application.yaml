@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: aircraft
+
+server:
+  port: 8080
+
