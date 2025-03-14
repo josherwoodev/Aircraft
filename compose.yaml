@@ -10,3 +10,6 @@ services:
       POSTGRES_HOST_AUTH_METHOD: password
     ports:
       - "5434:5432"
+volumes:
+  postgresql_data:
+    driver: local

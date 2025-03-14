@@ -1,13 +1,14 @@
 package com.bridge.example.aircraft.service;
 
 import com.bridge.example.aircraft.entity.Aircraft;
+import com.bridge.example.aircraft.entity.Engine;
+import com.bridge.example.aircraft.entity.EngineType;
 import com.bridge.example.aircraft.repository.AircraftRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -21,9 +22,19 @@ import static org.mockito.Mockito.when;
 
 class AircraftServiceTest {
 
+    public static final String AIRFRAME = "Dog House";
+    public static final String PILOT = "Snoopy, the Beagle";
+    public static final String SERIAL_NUMBER = "321C";
+    public static final String MANUFACTURER = "Saab";
+    public static final double VOL = 12.5;
+    public static final String FUEL_TYPE = "Jet B";
+
     @Mock
     private AircraftRepository aircraftRepository;
+
     private Aircraft aircraft;
+    private Engine engine;
+    private EngineType engineType;
 
     @InjectMocks
     private AircraftService aircraftService;
@@ -31,7 +42,9 @@ class AircraftServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        this.aircraft = new Aircraft(null, null, null);
+        this.engineType = new EngineType(MANUFACTURER, VOL, FUEL_TYPE);
+        this.engine = new Engine(SERIAL_NUMBER, this.engineType);
+        this.aircraft = new Aircraft(AIRFRAME, PILOT, this.engine);
     }
 
     @Test

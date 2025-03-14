@@ -1,12 +1,16 @@
 package com.bridge.example.aircraft.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "Aircraft")
 public class Aircraft {
 
     @Id
@@ -14,7 +18,8 @@ public class Aircraft {
     private long id;
     private String airframe;
     private String pilot;
-    @OneToOne(mappedBy = "aircraft")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "engine_id", referencedColumnName = "id")
     private Engine engine;
 
     public Aircraft(String airframe, String pilot, Engine engine) {
@@ -51,8 +56,8 @@ public class Aircraft {
         return this.engine;
     }
 
-    public void setEngine(Engine engine) {
-        this.engine = engine;
+    public void setEngine(Engine engineType) {
+        this.engine = engineType;
     }
 
     @Override

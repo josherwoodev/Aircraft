@@ -4,24 +4,25 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "engine")
 public class Engine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String manufacturer;
-    private double volume;
-    private String fuelType;
-    @OneToOne
-    private Aircraft aircraft;
+    private String serialNumber;
+    @ManyToOne
+    @JoinColumn(name = "engine_type_id", referencedColumnName = "id")
+    private EngineType engineType;
 
-    public Engine(String manufacturer, double volume, String fuelType) {
-        this.manufacturer = manufacturer;
-        this.volume = volume;
-        this.fuelType = fuelType;
+    public Engine(String serialNumber, EngineType engineType) {
+        this.serialNumber = serialNumber;
+        this.engineType = engineType;
     }
 
     public Engine() {
@@ -32,37 +33,28 @@ public class Engine {
         return this.id;
     }
 
-    public String getManufacturer() {
-        return this.manufacturer;
+    public String getSerialNumber() {
+        return this.serialNumber;
     }
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
-    public double getVolume() {
-        return this.volume;
+    public EngineType getEngineType() {
+        return this.engineType;
     }
 
-    public void setVolume(double volume) {
-        this.volume = volume;
-    }
-
-    public String getFuelType() {
-        return this.fuelType;
-    }
-
-    public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
+    public void setEngineType(EngineType engineType) {
+        this.engineType = engineType;
     }
 
     @Override
     public String toString() {
         return "Engine{" +
                 "id=" + this.id +
-                ", manufacturer='" + this.manufacturer + '\'' +
-                ", volume=" + this.volume +
-                ", fuelType='" + this.fuelType + '\'' +
+                ", serialNumber='" + this.serialNumber + '\'' +
+                ", engineType=" + this.engineType +
                 '}';
     }
 }
