@@ -40,6 +40,7 @@ class AircraftControllerTest {
     private ObjectMapper objectMapper;
     @MockitoBean
     AircraftService aircraftService;
+
     private Aircraft aircraft;
 
     @BeforeEach
@@ -53,11 +54,11 @@ class AircraftControllerTest {
 
         MockitoAnnotations.openMocks(this);
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/aircraft"))
+                        .get("/api/aircraft/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.*").isArray())
                 .andExpect(jsonPath("$.*").isNotEmpty())
-                .andExpect(jsonPath("$.[0].id").value(0));
+                .andExpect(jsonPath("$[0].id").value(0));
     }
 
     @Test
@@ -65,7 +66,7 @@ class AircraftControllerTest {
         when(this.aircraftService.getById(0)).thenReturn(this.aircraft);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/aircraft/0"))
+                        .get("/api/aircraft/0/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.id").value(0));
     }
@@ -75,7 +76,7 @@ class AircraftControllerTest {
         when(this.aircraftService.saveAircraft(Mockito.any(Aircraft.class))).thenReturn(this.aircraft);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/aircraft")
+                        .post("/api/aircraft/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(this.objectMapper.writeValueAsString(new Aircraft(AIRFRAME, PILOT, new Engine(SERIAL_NUMBER, new EngineType(MANUFACTURER, VOL, FUEL_TYPE))))))
                 .andExpect(MockMvcResultMatchers.status().isOk())

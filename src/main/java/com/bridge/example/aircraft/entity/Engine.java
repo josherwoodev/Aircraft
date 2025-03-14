@@ -1,5 +1,6 @@
 package com.bridge.example.aircraft.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +17,7 @@ public class Engine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String serialNumber;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "engine_type_id", referencedColumnName = "id")
     private EngineType engineType;
 

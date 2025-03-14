@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/aircraft")
 public class AircraftController {
 
     private final AircraftService aircraftService;
@@ -21,16 +21,16 @@ public class AircraftController {
         this.aircraftService = aircraftService;
     }
 
-    @GetMapping("/aircraft")
+    @GetMapping("/")
     public List<Aircraft> getAllAircraft() {
         return this.aircraftService.getAll();
     }
-    @GetMapping("/aircraft/{id}")
+    @GetMapping("/{id}/")
     public Aircraft getAircraftById(@PathVariable("id") long id) {
         return this.aircraftService.getById(id);
     }
 
-    @PostMapping("/aircraft")
+    @PostMapping("/")
     public Aircraft createAircraft(@RequestBody Aircraft aircraft) {
         return this.aircraftService.saveAircraft(aircraft);
     }
